@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Umar Creative</title>
+    <style>
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #111827;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #a855f7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(11,17,32,0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo-icon {
+            width: 280px;
+            height: 80px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav a { color: var(--text-gray); transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── HERO ── */
+        .hero { padding: 4rem 5%; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero span { color: var(--accent-cyan); }
+
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* ── INFO ── */
+        .info h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--accent-cyan); }
+        .detail { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .icon { background: #1e293b; padding: 0.8rem; border-radius: 10px; font-size: 1.2rem; }
+        .wa-btn {
+            display: inline-block;
+            background: #25D366;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: opacity 0.3s;
+        }
+        .wa-btn:hover { opacity: 0.88; }
+
+        /* ── FORM ── */
+        .form-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+        }
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-size: 0.9rem; }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #0b1120;
+            border: 1px solid #334155;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+        select option { background: #0b1120; }
+        button {
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            color: #fff;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+        button:hover { opacity: 0.9; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-gray);
+            border-top: 1px solid #1e293b;
+            margin-top: 3rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                gap: 0;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #334155;
+                z-index: 200;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            }
+            nav ul.open { display: flex; }
+            nav ul li a {
+                display: block;
+                padding: 0.9rem 5%;
+                font-size: 0.95rem;
+                border-bottom: 1px solid #1e293b;
+            }
+            nav ul li:last-child a { border-bottom: none; }
+            .menu-toggle { display: flex; }
+            .logo-icon { width: 200px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header>
+        <a class="logo" href="index.html">
+            <div class="logo-icon">
+                <img src="images/logo/logo1.png" alt="Umar Creative">
+            </div>
+        </a>
+
+        <nav>
+            <ul id="navMobile">
+                <li><a href="index.html" onclick="closeNav()">Home</a></li>
+                <li><a href="portfolio.html"    onclick="closeNav()">Portfolio</a></li>
+                <li><a href="services.html"     onclick="closeNav()">Services</a></li>
+                <li><a href="contact.html" class="active" onclick="closeNav()">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle" onclick="toggleNav()">☰</button>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <h1>Let's Create <span>Amazing</span></h1>
+        <p style="color: var(--text-gray);">Have a project in mind? Drop a message or WhatsApp me directly.</p>
+    </section>
+
+    <!-- ── CONTACT SECTION ── -->
+    <section class="container">
+
+        <!-- Info -->
+        <div class="info">
+            <h2>Get in Touch</h2>
+            <div class="detail">
+                <div class="icon">📞</div>
+                <div><strong>Phone / WhatsApp</strong><br>+92 320 1482901</div>
+            </div>
+            <div class="detail">
+                <div class="icon">✉️</div>
+                <div><strong>Email</strong><br>umarcreative111@gmail.com</div>
+            </div>
+            <div class="detail">
+                <div class="icon">🌍</div>
+                <div><strong>Service Area</strong><br>Available Worldwide</div>
+            </div>
+            <a href="https://wa.me/923201482901" class="wa-btn">💬 Chat on WhatsApp</a>
+        </div>
+
+        <!-- Form -->
+        <div class="form-box">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="email" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Service Interested In</label>
+                    <select id="service">
+                        <option>Print Media</option>
+                        <option>Social Media</option>
+                        <option>Shopify</option>
+                        <option>Branding</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Project Details *</label>
+                    <textarea id="message" required rows="4" placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit">Send Message 🚀</button>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <p>&copy; 2026 Umar Creative. AI Crafted Brands.</p>
+    </footer>
+
+    <!-- ── SCRIPTS ── -->
+    <script>
+        // Mobile Nav
+        function toggleNav() {
+            document.getElementById("navMobile").classList.toggle("open");
+        }
+        function closeNav() {
+            document.getElementById("navMobile").classList.remove("open");
+        }
+
+        // Contact Form → WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name    = document.getElementById('name').value.trim();
+            const service = document.getElementById('service').value;
+            const msg     = document.getElementById('message').value.trim();
+            const waLink  = `https://wa.me/923201482901?text=Hi%20Umar%2C%20I'm%20${encodeURIComponent(name)}.%20Interested%20in%20${encodeURIComponent(service)}.%20${encodeURIComponent(msg)}`;
+            alert('Message ready! Sending to WhatsApp...');
+            window.open(waLink, '_blank');
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services – Umar Creative</title>
+    <style>
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #111827;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #a855f7;
+            --gradient-main: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(11,17,32,0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo-icon {
+            width: 280px;
+            height: 80px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav a { font-weight: 500; color: var(--text-gray); transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background: radial-gradient(circle at center, #1e293b 0%, var(--bg-dark) 100%);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero p { color: var(--text-gray); max-width: 600px; margin: 0 auto; }
+
+        /* ── SERVICES GRID ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 5%; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+
+        .service-box {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .service-box:hover { border-color: var(--accent-purple); transform: translateY(-5px); }
+        .icon-box { font-size: 3rem; margin-bottom: 1.5rem; display: inline-block; }
+        .service-box h2 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+        .service-box ul {
+            text-align: left;
+            color: var(--text-gray);
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        .service-box li { margin-bottom: 0.8rem; list-style-type: disc; }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient-main);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+        .btn:hover { opacity: 0.88; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-gray);
+            border-top: 1px solid #1e293b;
+            margin-top: 3rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                gap: 0;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #334155;
+                z-index: 200;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            }
+            nav ul.open { display: flex; }
+            nav ul li a {
+                display: block;
+                padding: 0.9rem 5%;
+                font-size: 0.95rem;
+                border-bottom: 1px solid #1e293b;
+            }
+            nav ul li:last-child a { border-bottom: none; }
+            .menu-toggle { display: flex; }
+            .logo-icon { width: 200px; height: 60px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header>
+        <a class="logo" href="index.html">
+            <div class="logo-icon">
+                <img src="images/logo/logo1.png" alt="Umar Creative">
+            </div>
+        </a>
+
+        <nav>
+            <ul id="navMobile">
+                <li><a href="index.html" onclick="closeNav()">Home</a></li>
+                <li><a href="portfolio.html"    onclick="closeNav()">Portfolio</a></li>
+                <li><a href="services.html" class="active" onclick="closeNav()">Services</a></li>
+                <li><a href="contact.html"      onclick="closeNav()">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle" onclick="toggleNav()">☰</button>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <h1>Professional Design & Web Services</h1>
+        <p>AI-enhanced creativity meets pixel-perfect execution. Explore our tailored solutions.</p>
+    </section>
+
+    <!-- ── SERVICES ── -->
+    <section class="container">
+        <div class="services-grid">
+
+            <div class="service-box">
+                <div class="icon-box">🖨️</div>
+                <h2>Print Media Design</h2>
+                <ul>
+                    <li>Flyer & Poster Design</li>
+                    <li>Brochure & Catalog Layouts</li>
+                    <li>Business Cards & Stationery</li>
+                    <li>Google Review & Door Hanger Cards</li>
+                </ul>
+                <a href="contact.html" class="btn">Get Quote</a>
+            </div>
+
+            <div class="service-box">
+                <div class="icon-box">📱</div>
+                <h2>Social & Digital Media</h2>
+                <ul>
+                    <li>Social Media Post Design</li>
+                    <li>Brand Identity & Logo</li>
+                    <li>Presentation & Pitch Decks</li>
+                    <li>UI/UX Design & Wireframing</li>
+                </ul>
+                <a href="contact.html" class="btn">Get Quote</a>
+            </div>
+
+            <div class="service-box">
+                <div class="icon-box">🛍️</div>
+                <h2>Shopify & Web</h2>
+                <ul>
+                    <li>Shopify Theme Development</li>
+                    <li>Store Migration & SEO</li>
+                    <li>Product Uploads</li>
+                    <li>Maintenance & Support</li>
+                </ul>
+                <a href="contact.html" class="btn">Get Quote</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <p>&copy; 2026 Umar Creative. AI Crafted Brands.</p>
+    </footer>
+
+    <!-- ── SCRIPTS ── -->
+    <script>
+        function toggleNav() {
+            document.getElementById("navMobile").classList.toggle("open");
+        }
+        function closeNav() {
+            document.getElementById("navMobile").classList.remove("open");
+        }
+    </script>
+
+</body>
+</html>

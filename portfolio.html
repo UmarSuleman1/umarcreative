@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio – Umar Creative</title>
+    <style>
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #111827;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #a855f7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(11,17,32,0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo-icon {
+            width: 280px;
+            height: 80px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav a { color: var(--text-gray); transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        /* Hamburger */
+        .menu-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 4rem 5%;
+            text-align: center;
+            background: linear-gradient(180deg, #111827 0%, var(--bg-dark) 100%);
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero h1 span { color: var(--accent-purple); }
+
+        /* ── PORT-HERO (section header + tabs) ── */
+        .port-hero { text-align: center; padding: 2rem 5% 1rem; }
+        .port-hero .hero-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+        .port-hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .port-hero h1 span { color: var(--accent-purple); }
+        .port-hero > p { color: var(--text-gray); margin-bottom: 1.5rem; }
+
+        /* ── FILTER TABS ── */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .tab {
+            background: #1e293b;
+            color: var(--text-gray);
+            padding: 0.55rem 1.4rem;
+            border-radius: 50px;
+            border: 1px solid #334155;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .tab.active, .tab:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            border-color: var(--accent-purple);
+        }
+
+        /* ── PORTFOLIO GRID ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+        .card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #334155;
+            transition: transform 0.3s, border-color 0.3s;
+            background: #1e293b;
+            aspect-ratio: 4/5;
+        }
+        .card:hover { transform: scale(1.02); border-color: var(--accent-cyan); }
+        .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-hover {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding-bottom: 1rem;
+        }
+        .card:hover .card-hover { opacity: 1; }
+        .card:hover .play-icon { display: none; }
+        .card-hover p { color: #fff; font-weight: 700; text-align: center; padding: 0 10px; }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox img {
+            max-width: 95%;
+            max-height: 92vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px; right: 35px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-close:hover { color: var(--accent-cyan); }
+
+        /* ── CTA ── */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 5%;
+            margin-top: 2rem;
+            background: #111827;
+        }
+        .btn-wa {
+            background: #25D366;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .btn-wa:hover { opacity: 0.9; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                gap: 0;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #334155;
+                z-index: 200;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            }
+            nav ul.open { display: flex; }
+            nav ul li a {
+                display: block;
+                padding: 0.9rem 5%;
+                font-size: 0.95rem;
+                border-bottom: 1px solid #1e293b;
+            }
+            nav ul li:last-child a { border-bottom: none; }
+            .menu-toggle { display: flex; }
+            .logo-icon { width: 200px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header>
+        <a class="logo" href="index.html">
+            <div class="logo-icon">
+                <img src="images/logo/logo1.png" alt="Umar Creative">
+            </div>
+        </a>
+
+        <nav>
+            <ul id="navMobile">
+                <li><a href="index.html" onclick="closeNav()">Home</a></li>
+                <li><a href="portfolio.html" class="active" onclick="closeNav()">Portfolio</a></li>
+                <li><a href="services.html" onclick="closeNav()">Services</a></li>
+                <li><a href="contact.html" onclick="closeNav()">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle" onclick="toggleNav()">☰</button>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <h1>My <span>Portfolio</span></h1>
+        <p style="color: var(--text-gray);">Explore a curated collection of social media designs, print media, and brand visuals.</p>
+    </section>
+
+    <!-- ── PORTFOLIO SECTION ── -->
+    <section class="container">
+        <div class="port-hero">
+            <p class="hero-tag">Our Work</p>
+            <h1>Creative <span>Portfolio</span></h1>
+            <p>A curated collection of social media designs, print media, and branding work.</p>
+
+            <div class="filter-tabs">
+                <button class="tab active" data-type="all"      onclick="filterPortfolio(this)">All Work</button>
+                <button class="tab"        data-type="social"   onclick="filterPortfolio(this)">Social Media</button>
+                <button class="tab"        data-type="print"    onclick="filterPortfolio(this)">Print Media</button>
+                <button class="tab"        data-type="branding" onclick="filterPortfolio(this)">Branding</button>
+            </div>
+        </div>
+
+        <div class="grid" id="portfolioGrid"></div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section">
+        <h2>Like What You See?</h2>
+        <p style="color: var(--text-gray); margin-bottom: 1rem;">Let's work together and bring your brand to life.</p>
+        <a href="https://wa.me/923201482901" class="btn-wa">📞 Book a Call</a>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <p>&copy; 2026 Umar Creative. AI Crafted Brands.</p>
+    </footer>
+
+    <!-- ── SCRIPTS ── -->
+    <script>
+        // ── Mobile Nav ──
+        function toggleNav() {
+            document.getElementById("navMobile").classList.toggle("open");
+        }
+        function closeNav() {
+            document.getElementById("navMobile").classList.remove("open");
+        }
+
+        // ── Lightbox (image + video) ──
+        function showLightbox(src, isVideo = false) {
+            const lb = document.createElement('div');
+            lb.className = 'lightbox';
+            lb.id = 'lb';
+            lb.innerHTML = `
+                <span class="lightbox-close" onclick="closeLightbox()">×</span>
+                ${isVideo
+                    ? `<video src="${src}" controls autoplay style="max-width:95%;max-height:92vh;border-radius:12px;"></video>`
+                    : `<img src="${src}" alt="Preview">`
+                }
+            `;
+            lb.addEventListener('click', function(e) {
+                if (e.target === lb) closeLightbox();
+            });
+            document.body.appendChild(lb);
+            lb.style.display = 'flex';
+        }
+        function closeLightbox() {
+            const lb = document.getElementById('lb');
+            if (lb) lb.remove();
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ── Portfolio Data ──
+        // Build print items — p18 is a video
+        const printItems = Array.from({length: 31}, (_, i) => {
+            const n = i + 1;
+            if (n === 18) return {
+                category: "print",
+                image: `images/portfolio/print/p${n}.mp4`,
+                title: `Print Design p${n}`,
+                isVideo: true
+            };
+            return {
+                category: "print",
+                image: `images/portfolio/print/p${n}.jpg`,
+                title: `Print Design p${n}`,
+                isVideo: false
+            };
+        });
+
+        const portfolioItems = [
+            // SOCIAL MEDIA (1–31)
+            ...Array.from({length: 31}, (_, i) => ({
+                category: "social",
+                image: `images/portfolio/social/${i+1}.jpg`,
+                title: `Social Post ${i+1}`,
+                isVideo: false
+            })),
+            // PRINT MEDIA (1–31, p18 is video)
+            ...printItems,
+            // BRANDING (1–8)
+            ...Array.from({length: 8}, (_, i) => ({
+                category: "branding",
+                image: `images/portfolio/branding/${i+1}.jpg`,
+                title: `Branding ${i+1}`,
+                isVideo: false
+            })),
+        ];
+
+        // ── Render ──
+        function renderPortfolio(items) {
+            const grid = document.getElementById("portfolioGrid");
+            grid.innerHTML = "";
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => showLightbox(item.image, item.isVideo);
+
+                if (item.isVideo) {
+                    card.innerHTML = `
+                        <video src="${item.image}" muted loop playsinline
+                               style="width:100%;height:100%;object-fit:cover;display:block;"
+                               onmouseenter="this.play()" onmouseleave="this.pause()">
+                        </video>
+                        <div class="card-hover" style="pointer-events:none;">
+                            <p>▶ ${item.title}</p>
+                        </div>
+                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                                    background:rgba(168,85,247,0.85);border-radius:50%;
+                                    width:48px;height:48px;display:flex;align-items:center;
+                                    justify-content:center;font-size:1.3rem;pointer-events:none;"
+                             class="play-icon">▶</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}"
+                             onerror="this.src='https://via.placeholder.com/400x500?text=Not+Found'">
+                        <div class="card-hover">
+                            <p>${item.title}</p>
+                        </div>
+                    `;
+                }
+                grid.appendChild(card);
+            });
+        }
+
+        // ── Filter ──
+        function filterPortfolio(btn) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            const type = btn.dataset.type;
+            const filtered = type === "all"
+                ? portfolioItems
+                : portfolioItems.filter(item => item.category === type);
+            renderPortfolio(filtered);
+        }
+
+        // Initial load
+        renderPortfolio(portfolioItems);
+    </script>
+</body>
+</html>

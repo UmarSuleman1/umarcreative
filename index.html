@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umar Creative | AI Crafted Brands</title>
+    <style>
+        :root {
+            --bg-dark: #0b1120;
+            --bg-card: #111827;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #a855f7;
+            --gradient-main: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            --gradient-text: linear-gradient(to right, #fff, var(--accent-cyan));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(11,17,32,0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo-icon {
+            width: 280px;
+            height: 80px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+        nav ul { display: flex; gap: 2rem; }
+        nav a { font-weight: 500; color: var(--text-gray); transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); text-shadow: 0 0 10px rgba(34,211,238,0.5); }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background: radial-gradient(circle at top right, #1e293b 0%, var(--bg-dark) 60%);
+            padding: 4rem 5%;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.1; }
+        .hero h1 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-gray); max-width: 700px; margin: 1rem auto 2rem; font-size: 1.1rem; }
+
+        .btn-glow {
+            display: inline-block;
+            background: var(--gradient-main);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(168,85,247,0.4);
+            transition: 0.3s;
+        }
+        .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(34,211,238,0.6); }
+
+        /* ── COMMON ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 5%; }
+        .section-title { text-align: center; font-size: 2rem; font-weight: 700; margin-bottom: 3rem; }
+        .section-title span { color: var(--accent-cyan); }
+
+        /* ── WHY CHOOSE US ── */
+        .why-us { background: #111827; padding: 4rem 5%; text-align: center; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .why-card { background: var(--bg-dark); padding: 2rem; border-radius: 15px; border: 1px solid #1e293b; transition: 0.3s; }
+        .why-card:hover { border-color: var(--accent-purple); transform: translateY(-4px); }
+        .why-card h3 { color: var(--accent-cyan); margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+        /* ── SERVICES ── */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card {
+            background: #111827;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .service-card:hover { border-color: var(--accent-purple); transform: translateY(-5px); }
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: #fff; }
+        .service-card h4 { color: var(--accent-cyan); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        .service-card ul { color: var(--text-gray); margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .service-card li { margin-bottom: 0.5rem; padding-left: 0.8rem; position: relative; }
+        .service-card li::before { content: "▸"; color: var(--accent-purple); position: absolute; left: 0; }
+        .btn-sm {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            transition: opacity 0.3s;
+        }
+        .btn-sm:hover { opacity: 0.85; }
+
+        /* ── PORTFOLIO TEASER ── */
+        .portfolio-section { background: #111827; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .p-card {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
+            background: #1e293b;
+            border: 1px solid #334155;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .p-card:hover { border-color: var(--accent-cyan); transform: scale(1.02); }
+        .p-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .p-card .p-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex; align-items: flex-end;
+            padding: 0.8rem;
+            opacity: 0; transition: 0.3s;
+        }
+        .p-card:hover .p-overlay { opacity: 1; }
+        .p-overlay span {
+            font-size: 0.8rem; font-weight: 600;
+            color: #fff;
+            background: rgba(168,85,247,0.8);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+        }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000; align-items: center; justify-content: center; padding: 20px;
+        }
+        .lightbox img { max-width: 95%; max-height: 92vh; border-radius: 12px; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px;
+            color: #fff; font-size: 45px; font-weight: bold; cursor: pointer; line-height: 1;
+        }
+        .lightbox-close:hover { color: var(--accent-cyan); }
+
+        /* ── FOOTER CTA ── */
+        .footer-cta {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--bg-dark);
+            border-top: 1px solid #1e293b;
+        }
+        .footer-cta h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid #1e293b;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                gap: 0;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #334155;
+                z-index: 200;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            }
+            nav ul.open { display: flex; }
+            nav ul li a {
+                display: block;
+                padding: 0.9rem 5%;
+                font-size: 0.95rem;
+                border-bottom: 1px solid #1e293b;
+            }
+            nav ul li:last-child a { border-bottom: none; }
+            .menu-toggle { display: flex; }
+            .logo-icon { width: 200px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header>
+        <a class="logo" href="index.html">
+            <div class="logo-icon">
+                <img src="images/logo/logo1.png" alt="Umar Creative">
+            </div>
+        </a>
+
+        <nav>
+            <ul id="navMobile">
+                <li><a href="index.html" class="active" onclick="closeNav()">Home</a></li>
+                <li><a href="portfolio.html"    onclick="closeNav()">Portfolio</a></li>
+                <li><a href="services.html"     onclick="closeNav()">Services</a></li>
+                <li><a href="contact.html"      onclick="closeNav()">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle" onclick="toggleNav()">☰</button>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <h1>Innovative Vision <br><span>Drives Your Brand Forward</span></h1>
+        <p>AI-Crafted Brands, Future-Forward Impact. Bridging Connections with Clients through Modern Graphic Design.</p>
+        <a href="contact.html" class="btn-glow">Start Your Project</a>
+    </section>
+
+    <!-- ── WHY CHOOSE US ── -->
+    <section class="why-us">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">WHY CHOOSE US?</h2>
+        <p style="color: var(--text-gray); max-width: 800px; margin: 0 auto;">Umar Creative: Your Partner in Digital Success. We deliver innovative strategies and exceptional service that exceed expectations.</p>
+        <div class="why-grid">
+            <div class="why-card"><h3>🚀 Speed</h3><p>Fast Turnaround (24-48hrs)</p></div>
+            <div class="why-card"><h3>🎨 Design</h3><p>Pixel-Perfect Quality</p></div>
+            <div class="why-card"><h3>🤖 AI Powered</h3><p>Smart Creative Solutions</p></div>
+        </div>
+    </section>
+
+    <!-- ── SERVICES ── -->
+    <section class="container">
+        <h2 class="section-title">Our Exclusive <span>Services</span></h2>
+        <div class="services-grid">
+
+            <div class="service-card">
+                <h4>Print Media Services</h4>
+                <h3>Modern Print Media</h3>
+                <ul>
+                    <li>Flyer & Brochure Design</li>
+                    <li>Business Cards & Stationery</li>
+                    <li>Posters & Door Hangers</li>
+                    <li>Google Review Cards</li>
+                </ul>
+                <a href="contact.html" class="btn-sm">More Info</a>
+            </div>
+
+            <div class="service-card" style="border-color: var(--accent-cyan);">
+                <h4>Social Media Services</h4>
+                <h3>Modern Social Media</h3>
+                <ul>
+                    <li>Social Media Post Design</li>
+                    <li>Brand Identity & Logo</li>
+                    <li>UI/UX Design</li>
+                    <li>Digital Banners & Ads</li>
+                </ul>
+                <a href="contact.html" class="btn-sm">More Info</a>
+            </div>
+
+            <div class="service-card">
+                <h4>Shopify Services</h4>
+                <h3>Modern Shopify Website</h3>
+                <ul>
+                    <li>Theme Development</li>
+                    <li>SEO Assistance</li>
+                    <li>Store Migration</li>
+                    <li>Updates & Maintenance</li>
+                </ul>
+                <a href="contact.html" class="btn-sm">More Info</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── PORTFOLIO TEASER ── -->
+    <section class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title">Recent <span>Work</span></h2>
+            <div class="portfolio-grid">
+
+                <!-- Social -->
+                <div class="p-card" onclick="showLb('images/home/social/s1.jpg')">
+                    <img src="images/home/social/s1.jpg" alt="Social 1">
+                    <div class="p-overlay"><span>Social Media</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/social/s3.jpg')">
+                    <img src="images/home/social/s3.jpg" alt="Social 3">
+                    <div class="p-overlay"><span>Social Media</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/social/s5.jpg')">
+                    <img src="images/home/social/s5.jpg" alt="Social 5">
+                    <div class="p-overlay"><span>Social Media</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/social/s8.jpg')">
+                    <img src="images/home/social/s8.jpg" alt="Social 8">
+                    <div class="p-overlay"><span>Social Media</span></div>
+                </div>
+
+                <!-- Print -->
+                <div class="p-card" onclick="showLb('images/home/print/p1.jpg')">
+                    <img src="images/home/print/p1.jpg" alt="Print 1">
+                    <div class="p-overlay"><span>Print Media</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/print/p4.jpg')">
+                    <img src="images/home/print/p4.jpg" alt="Print 4">
+                    <div class="p-overlay"><span>Print Media</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/print/p7.jpg')">
+                    <img src="images/home/print/p7.jpg" alt="Print 7">
+                    <div class="p-overlay"><span>Print Media</span></div>
+                </div>
+
+                <!-- Branding -->
+                <div class="p-card" onclick="showLb('images/home/branding/1.jpg')">
+                    <img src="images/home/branding/1.jpg" alt="Branding 1">
+                    <div class="p-overlay"><span>Branding</span></div>
+                </div>
+                <div class="p-card" onclick="showLb('images/home/branding/3.jpg')">
+                    <img src="images/home/branding/3.jpg" alt="Branding 3">
+                    <div class="p-overlay"><span>Branding</span></div>
+                </div>
+
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="portfolio.html" class="btn-glow" style="background: transparent; border: 1px solid var(--accent-cyan);">View Full Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER CTA ── -->
+    <section class="footer-cta">
+        <h2>Feeling Confused?</h2>
+        <p style="color: var(--text-gray); margin-bottom: 1.5rem;">I'd love to chat with you about how I can help. Book a call today.</p>
+        <a href="https://wa.me/923201482901" class="btn-glow">📞 +92 320 1482901</a>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <p>&copy; 2026 Umar Creative. All Rights Reserved.</p>
+    </footer>
+
+    <!-- ── SCRIPTS ── -->
+    <script>
+        function toggleNav() {
+            document.getElementById("navMobile").classList.toggle("open");
+        }
+        function closeNav() {
+            document.getElementById("navMobile").classList.remove("open");
+        }
+
+        // Lightbox
+        function showLb(src) {
+            const lb = document.createElement('div');
+            lb.className = 'lightbox';
+            lb.id = 'lb';
+            lb.innerHTML = `<span class="lightbox-close" onclick="closeLb()">×</span><img src="${src}" alt="Preview">`;
+            lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+            document.body.appendChild(lb);
+            lb.style.display = 'flex';
+        }
+        function closeLb() {
+            const lb = document.getElementById('lb');
+            if (lb) lb.remove();
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    </script>
+
+</body>
+</html>
