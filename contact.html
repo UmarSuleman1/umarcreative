@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact – Umar Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#050d1a;--gray:#94a3b8;--cyan:#22d3ee;--purple:#a855f7;--orange:#f97316;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#fff;font-family:'Rajdhani','Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}ul{list-style:none;}
+
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.grid-bg{position:fixed;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(34,211,238,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.04) 1px,transparent 1px);background-size:70px 70px;}
+
+header{position:sticky;top:0;z-index:100;padding:.9rem 5%;display:flex;justify-content:space-between;align-items:center;background:rgba(5,13,26,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(34,211,238,.15);}
+.logo-icon{width:220px;height:64px;display:flex;align-items:center;overflow:hidden;}
+.logo-icon img{width:100%;height:100%;object-fit:contain;}
+nav ul{display:flex;gap:2.2rem;}
+nav a{font-size:.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gray);transition:.3s;position:relative;padding-bottom:4px;}
+nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:.3s;}
+nav a:hover,nav a.active{color:var(--cyan);}
+nav a:hover::after,nav a.active::after{transform:scaleX(1);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;transition:.3s;}
+
+/* HERO */
+.hero{position:relative;z-index:10;padding:5rem 5% 2.5rem;text-align:center;}
+.hero-chip{display:inline-block;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(34,211,238,.35);padding:7px 22px;margin-bottom:1.5rem;background:rgba(34,211,238,.06);border-radius:2px;}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.9rem,5vw,3.2rem);font-weight:900;margin-bottom:.9rem;}
+.hero h1 span{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{color:var(--gray);max-width:480px;margin:0 auto;}
+
+/* CONTACT GRID */
+.contact-section{position:relative;z-index:10;padding:2rem 5% 5rem;}
+.contact-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+
+/* INFO BOX */
+.info-box{}
+.info-label{font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:1.2rem;display:block;}
+.info-title{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;margin-bottom:1.8rem;line-height:1.3;}
+.info-title span{color:var(--cyan);}
+
+.detail{display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem;padding:.9rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:4px;transition:.3s;}
+.detail:hover{border-color:rgba(34,211,238,.2);background:rgba(34,211,238,.04);transform:translateX(4px);}
+.det-icon{width:44px;height:44px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.det-txt strong{display:block;font-size:.82rem;font-weight:700;letter-spacing:1px;color:#fff;margin-bottom:2px;}
+.det-txt span{font-size:.82rem;color:var(--gray);}
+
+.btn-wa{display:inline-block;background:#25D366;color:#fff;padding:13px 28px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;border-radius:3px;transition:.3s;margin-top:.5rem;}
+.btn-wa:hover{opacity:.9;transform:translateY(-3px);}
+
+/* FORM */
+.form-box{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  padding:2.4rem;border-radius:4px;
+  position:relative;overflow:hidden;
+}
+.form-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--cyan));}
+.form-box::after{content:'';position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--purple),transparent);}
+
+.form-heading{font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--cyan);font-weight:700;margin-bottom:1.6rem;display:block;}
+
+.fg{margin-bottom:1.1rem;}
+.fg label{display:block;margin-bottom:5px;color:var(--gray);font-size:.78rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:11px 14px;
+  background:rgba(5,13,26,.8);
+  border:1px solid rgba(255,255,255,.08);
+  color:#fff;border-radius:3px;
+  font-size:.95rem;font-family:'Rajdhani',sans-serif;
+  transition:.3s;outline:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(168,85,247,.5);background:rgba(168,85,247,.04);box-shadow:0 0 0 1px rgba(168,85,247,.2);}
+.fg select option{background:#0b1120;}
+.fg textarea{resize:vertical;}
+
+.btn-submit{
+  width:100%;background:linear-gradient(135deg,var(--purple),var(--cyan));
+  color:#fff;padding:13px;border:none;
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:.88rem;letter-spacing:3px;text-transform:uppercase;
+  cursor:pointer;transition:.3s;border-radius:3px;
+}
+.btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 28px rgba(168,85,247,.3);}
+
+footer{position:relative;z-index:10;text-align:center;padding:1.4rem;color:var(--gray);font-size:.78rem;letter-spacing:1px;border-top:1px solid rgba(34,211,238,.08);background:rgba(5,13,26,.95);}
+
+@media(max-width:768px){
+  nav ul{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(5,13,26,.97);flex-direction:column;gap:0;padding:.5rem 0;border-bottom:1px solid #334155;z-index:200;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+  nav ul.open{display:flex;}
+  nav ul li a{display:block;padding:.9rem 5%;border-bottom:1px solid #1e293b;}
+  nav ul li:last-child a{border-bottom:none;}
+  .hamburger{display:flex;}
+  .logo-icon{width:180px;height:55px;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<header>
+  <a href="index.html"><div class="logo-icon"><img src="images/logo/logo1.png" alt="Umar Creative"></div></a>
+  <nav>
+    <ul id="navList">
+      <li><a href="index.html" onclick="closeNav()">Home</a></li>
+      <li><a href="portfolio.html" onclick="closeNav()">Portfolio</a></li>
+      <li><a href="services.html" onclick="closeNav()">Services</a></li>
+      <li><a href="contact.html" class="active" onclick="closeNav()">Contact Us</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</header>
+
+<section class="hero">
+  <div class="hero-chip">// Reach Out</div>
+  <h1>Let's Create <span>Amazing</span></h1>
+  <p>Have a project in mind? Drop a message or WhatsApp me directly.</p>
+</section>
+
+<div class="contact-section">
+  <div class="contact-grid">
+
+    <!-- INFO -->
+    <div class="info-box">
+      <span class="info-label">// Contact Info</span>
+      <h2 class="info-title">Get in <span>Touch</span></h2>
+      <div class="detail">
+        <div class="det-icon">📞</div>
+        <div class="det-txt"><strong>Phone / WhatsApp</strong><span>+92 320 1482901</span></div>
+      </div>
+      <div class="detail">
+        <div class="det-icon">✉️</div>
+        <div class="det-txt"><strong>Email</strong><span>umarcreative111@gmail.com</span></div>
+      </div>
+      <div class="detail">
+        <div class="det-icon">🌍</div>
+        <div class="det-txt"><strong>Service Area</strong><span>Available Worldwide</span></div>
+      </div>
+      <a href="https://wa.me/923201482901" class="btn-wa">💬 Chat on WhatsApp</a>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-box">
+      <span class="form-heading">// Send Message</span>
+      <form id="contactForm">
+        <div class="fg"><label>Full Name *</label><input type="text" id="name" required placeholder="Your Name"></div>
+        <div class="fg"><label>Email *</label><input type="email" id="email" required placeholder="you@example.com"></div>
+        <div class="fg">
+          <label>Service Interested In</label>
+          <select id="service">
+            <option>Print Media</option>
+            <option>Social Media</option>
+            <option>Shopify</option>
+            <option>Branding</option>
+          </select>
+        </div>
+        <div class="fg"><label>Project Details *</label><textarea id="message" required rows="4" placeholder="Tell me about your project..."></textarea></div>
+        <button type="submit" class="btn-submit">Send Message 🚀</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer><p>&copy; 2026 Umar Creative. AI Crafted Brands.</p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function toggleNav(){document.getElementById('navList').classList.toggle('open');}
+function closeNav(){document.getElementById('navList').classList.remove('open');}
+
+/* Form → WhatsApp */
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const service=document.getElementById('service').value;
+  const msg=document.getElementById('message').value.trim();
+  const link=`https://wa.me/923201482901?text=Hi%20Umar%2C%20I'm%20${encodeURIComponent(name)}.%20Interested%20in%20${encodeURIComponent(service)}.%20${encodeURIComponent(msg)}`;
+  alert('Message ready! Opening WhatsApp...');
+  window.open(link,'_blank');
+});
+
+/* Detail tilt */
+document.querySelectorAll('.detail').forEach(el=>{
+  el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=((e.clientX-r.left)/r.width-.5)*10;const y=-((e.clientY-r.top)/r.height-.5)*10;el.style.transform=`perspective(400px) rotateX(${y}deg) rotateY(${x}deg) translateX(4px)`;});
+  el.addEventListener('mouseleave',()=>{el.style.transform='';});
+});
+
+(function(){
+  if(typeof THREE==='undefined') return;
+  try{
+    const canvas=document.getElementById('bg-canvas');
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);cam.position.z=6;
+    const N=1600,pos=new Float32Array(N*3),col=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*24;pos[i*3+1]=(Math.random()-.5)*20;pos[i*3+2]=(Math.random()-.5)*12;const t=Math.random();if(t<.5){col[i*3]=0;col[i*3+1]=.83;col[i*3+2]=.93;}else{col[i*3]=.66;col[i*3+1]=.33;col[i*3+2]=.97;}}
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    const pts=new THREE.Points(geo,new THREE.PointsMaterial({size:.022,vertexColors:true,transparent:true,opacity:.65}));scene.add(pts);
+    const meshes=[[new THREE.OctahedronGeometry(.5),0x22d3ee],[new THREE.IcosahedronGeometry(.42),0xa855f7],[new THREE.TorusGeometry(.35,.12,8,16),0xf97316],[new THREE.TetrahedronGeometry(.4),0x22d3ee]].map(([g,c])=>{
+      const m=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:c,wireframe:true}));
+      m.position.set((Math.random()-.5)*13,(Math.random()-.5)*8,(Math.random()-.5)*5);
+      m.userData={rx:Math.random()*.006+.002,ry:Math.random()*.007+.003,fy:Math.random()*Math.PI*2,fs:Math.random()*.018+.008};
+      scene.add(m);return m;
+    });
+    let mx=0,my=0;
+    document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=-(e.clientY/innerHeight-.5)*2;});
+    window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+    (function tick(){requestAnimationFrame(tick);pts.rotation.y+=.0003;meshes.forEach(m=>{m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.userData.fy+=m.userData.fs;m.position.y+=Math.sin(m.userData.fy)*.003;});cam.position.x+=(mx*.3-cam.position.x)*.04;cam.position.y+=(my*.2-cam.position.y)*.04;cam.lookAt(0,0,0);renderer.render(scene,cam);})();
+  }catch(e){console.warn('Three.js:',e);}
+})();
+</script>
+</body>
+</html>

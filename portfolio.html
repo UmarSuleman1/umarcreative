@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Umar Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#050d1a;--gray:#94a3b8;--cyan:#22d3ee;--purple:#a855f7;--orange:#f97316;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#fff;font-family:'Rajdhani','Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}ul{list-style:none;}
+
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.grid-bg{position:fixed;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(34,211,238,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.04) 1px,transparent 1px);background-size:70px 70px;}
+
+header{position:sticky;top:0;z-index:100;padding:.9rem 5%;display:flex;justify-content:space-between;align-items:center;background:rgba(5,13,26,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(34,211,238,.15);}
+.logo-icon{width:220px;height:64px;display:flex;align-items:center;overflow:hidden;}
+.logo-icon img{width:100%;height:100%;object-fit:contain;}
+nav ul{display:flex;gap:2.2rem;}
+nav a{font-size:.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gray);transition:.3s;position:relative;padding-bottom:4px;}
+nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:.3s;}
+nav a:hover,nav a.active{color:var(--cyan);}
+nav a:hover::after,nav a.active::after{transform:scaleX(1);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;transition:.3s;}
+
+/* HERO */
+.hero{position:relative;z-index:10;padding:5rem 5% 2.5rem;text-align:center;}
+.hero-chip{display:inline-block;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--purple);border:1px solid rgba(168,85,247,.35);padding:7px 22px;margin-bottom:1.5rem;background:rgba(168,85,247,.06);border-radius:2px;}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.9rem,5vw,3.4rem);font-weight:900;margin-bottom:.9rem;}
+.hero h1 span{background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{color:var(--gray);max-width:520px;margin:0 auto;}
+
+/* FILTER */
+.filter-bar{position:relative;z-index:10;display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;padding:0 5% 2rem;}
+.tab{
+  background:rgba(255,255,255,.03);color:var(--gray);
+  padding:8px 24px;border:1px solid rgba(255,255,255,.07);
+  cursor:pointer;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Rajdhani',sans-serif;font-weight:600;transition:.3s;border-radius:3px;
+}
+.tab.active,.tab:hover{background:rgba(168,85,247,.18);color:#fff;border-color:rgba(168,85,247,.5);}
+
+/* GRID */
+.port-wrap{position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:0 5% 5rem;}
+.port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;}
+
+.card{position:relative;border-radius:4px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.06);aspect-ratio:4/5;background:#1e293b;transition:.4s;}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s;}
+.card:hover{border-color:rgba(34,211,238,.4);}
+.card:hover img{transform:scale(1.05);}
+.card-ov{position:absolute;inset:0;opacity:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 55%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.1rem;transition:.3s;}
+.card:hover .card-ov{opacity:1;}
+.card-ov p{color:#fff;font-weight:700;font-size:.82rem;letter-spacing:1px;text-align:center;padding:0 8px;}
+.play-ic{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(168,85,247,.85);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;pointer-events:none;}
+
+/* CTA */
+.cta{position:relative;z-index:10;text-align:center;padding:4rem 5%;background:rgba(5,13,26,.7);border-top:1px solid rgba(34,211,238,.08);}
+.cta h2{font-family:'Orbitron',monospace;font-size:1.7rem;margin-bottom:.8rem;}
+.cta p{color:var(--gray);margin-bottom:1.5rem;}
+.btn-wa{display:inline-block;background:#25D366;color:#fff;padding:13px 30px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;border-radius:3px;transition:.3s;}
+.btn-wa:hover{opacity:.9;transform:translateY(-3px);}
+
+footer{position:relative;z-index:10;text-align:center;padding:1.4rem;color:var(--gray);font-size:.78rem;letter-spacing:1px;border-top:1px solid rgba(34,211,238,.08);background:rgba(5,13,26,.95);}
+
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:10000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.lb-x{position:absolute;top:22px;right:28px;color:#fff;font-size:44px;font-weight:300;cursor:pointer;line-height:1;transition:.3s;font-family:'Orbitron',monospace;}
+.lb-x:hover{color:var(--cyan);}
+
+@media(max-width:768px){
+  nav ul{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(5,13,26,.97);flex-direction:column;gap:0;padding:.5rem 0;border-bottom:1px solid #334155;z-index:200;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+  nav ul.open{display:flex;}
+  nav ul li a{display:block;padding:.9rem 5%;border-bottom:1px solid #1e293b;}
+  nav ul li:last-child a{border-bottom:none;}
+  .hamburger{display:flex;}
+  .logo-icon{width:180px;height:55px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<header>
+  <a href="index.html"><div class="logo-icon"><img src="images/logo/logo1.png" alt="Umar Creative"></div></a>
+  <nav>
+    <ul id="navList">
+      <li><a href="index.html" onclick="closeNav()">Home</a></li>
+      <li><a href="portfolio.html" class="active" onclick="closeNav()">Portfolio</a></li>
+      <li><a href="services.html" onclick="closeNav()">Services</a></li>
+      <li><a href="contact.html" onclick="closeNav()">Contact Us</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</header>
+
+<section class="hero">
+  <div class="hero-chip">Our Work</div>
+  <h1>Creative <span>Portfolio</span></h1>
+  <p>A curated collection of social media designs, print media, and branding work.</p>
+</section>
+
+<div class="filter-bar">
+  <button class="tab active" data-type="all" onclick="filterP(this)">All Work</button>
+  <button class="tab" data-type="social" onclick="filterP(this)">Social Media</button>
+  <button class="tab" data-type="print" onclick="filterP(this)">Print Media</button>
+  <button class="tab" data-type="branding" onclick="filterP(this)">Branding</button>
+</div>
+
+<div class="port-wrap">
+  <div class="port-grid" id="portGrid"></div>
+</div>
+
+<section class="cta">
+  <h2>Like What You See?</h2>
+  <p>Let's work together and bring your brand to life.</p>
+  <a href="https://wa.me/923201482901" class="btn-wa">📞 Book a Call</a>
+</section>
+
+<footer><p>&copy; 2026 Umar Creative. AI Crafted Brands.</p></footer>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <span class="lb-x" onclick="closeLb()">×</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function toggleNav(){document.getElementById('navList').classList.toggle('open');}
+function closeNav(){document.getElementById('navList').classList.remove('open');}
+
+/* LIGHTBOX */
+function showLb(src,isVid){
+  const lb=document.getElementById('lb');
+  lb.querySelectorAll('img,video').forEach(e=>e.remove());
+  const el=document.createElement(isVid?'video':'img');
+  el.src=src;
+  if(isVid){el.controls=true;el.autoplay=true;el.style.cssText='max-width:95%;max-height:92vh;border-radius:8px;';}
+  else{el.style.cssText='max-width:95%;max-height:92vh;border-radius:8px;box-shadow:0 0 50px rgba(34,211,238,.15);';}
+  lb.appendChild(el);lb.style.display='flex';
+}
+function closeLb(){
+  const lb=document.getElementById('lb');
+  lb.querySelectorAll('video').forEach(v=>v.pause());
+  lb.style.display='none';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+
+/* PORTFOLIO DATA */
+const printItems=Array.from({length:31},(_,i)=>{
+  const n=i+1;
+  return n===18
+    ?{cat:'print',src:`images/portfolio/print/p${n}.mp4`,title:`Print ${n}`,vid:true}
+    :{cat:'print',src:`images/portfolio/print/p${n}.jpg`,title:`Print ${n}`,vid:false};
+});
+const ALL=[
+  ...Array.from({length:31},(_,i)=>({cat:'social',src:`images/portfolio/social/${i+1}.jpg`,title:`Social Post ${i+1}`,vid:false})),
+  ...printItems,
+  ...Array.from({length:8},(_,i)=>({cat:'branding',src:`images/portfolio/branding/${i+1}.jpg`,title:`Branding ${i+1}`,vid:false})),
+];
+
+function renderGrid(list){
+  const grid=document.getElementById('portGrid');
+  grid.innerHTML='';
+  list.forEach(item=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.onclick=()=>showLb(item.src,item.vid);
+    if(item.vid){
+      card.innerHTML=`<video src="${item.src}" muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;" onmouseenter="this.play()" onmouseleave="this.pause()"></video><div class="card-ov" style="pointer-events:none;"><p>▶ ${item.title}</p></div><div class="play-ic" style="pointer-events:none;">▶</div>`;
+    } else {
+      card.innerHTML=`<img src="${item.src}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/400x500?text=Image+Not+Found'"><div class="card-ov"><p>${item.title}</p></div>`;
+    }
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width-.5)*16;
+      const y=-((e.clientY-r.top)/r.height-.5)*16;
+      card.style.transform=`perspective(500px) rotateX(${y}deg) rotateY(${x}deg) scale(1.03)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+    grid.appendChild(card);
+  });
+}
+
+function filterP(btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const type=btn.dataset.type;
+  renderGrid(type==='all'?ALL:ALL.filter(i=>i.cat===type));
+}
+renderGrid(ALL);
+
+/* THREE.JS */
+(function(){
+  if(typeof THREE==='undefined') return;
+  try{
+    const canvas=document.getElementById('bg-canvas');
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);cam.position.z=6;
+    const N=1800,pos=new Float32Array(N*3),col=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*24;pos[i*3+1]=(Math.random()-.5)*20;pos[i*3+2]=(Math.random()-.5)*12;const t=Math.random();if(t<.5){col[i*3]=0;col[i*3+1]=.83;col[i*3+2]=.93;}else{col[i*3]=.66;col[i*3+1]=.33;col[i*3+2]=.97;}}
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    const pts=new THREE.Points(geo,new THREE.PointsMaterial({size:.022,vertexColors:true,transparent:true,opacity:.65}));scene.add(pts);
+    let mx=0,my=0;
+    document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=-(e.clientY/innerHeight-.5)*2;});
+    window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+    (function tick(){requestAnimationFrame(tick);pts.rotation.y+=.0003;cam.position.x+=(mx*.3-cam.position.x)*.04;cam.position.y+=(my*.2-cam.position.y)*.04;cam.lookAt(0,0,0);renderer.render(scene,cam);})();
+  }catch(e){console.warn('Three.js:',e);}
+})();
+</script>
+</body>
+</html>
